@@ -1,0 +1,80 @@
+version: '3'
+
+networks:
+  lemp:
+
+services:
+  site:
+    build:
+      context: .
+      dockerfile: provision/nginx.dockerfile
+      args:
+        CONFIG_NGINX_VERSION: ${CONFIG_NGINX_VERSION}
+        CONFIG_NGINX_DOCKER_IMAGE: ${CONFIG_NGINX_DOCKER_IMAGE}
+        CONFIG_LOCAL: ${CONFIG_LOCAL}
+        CONFIG_DESTINATION: ${CONFIG_DESTINATION}
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./:${CONFIG_DESTINATION}:delegated
+    depends_on:
+      - php
+      - redis
+      - mysql
+    networks:
+      - lemp
+
+  mysql:
+    image: "mysql:${CONFIG_MYSQL_VERSION}"
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: "${CONFIG_MYSQL_DB}"
+      MYSQL_USER: "${CONFIG_MYSQL_USER}"
+      MYSQL_PASSWORD: "${CONFIG_MYSQL_PASS}"
+      MYSQL_ROOT_PASSWORD: "${CONFIG_MYSQL_ROOT_PASS}"
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - lemp
+
+  php:
+    build:
+      context: .
+      dockerfile: provision/php.dockerfile
+      args:
+        CONFIG_PHP_VERSION: ${CONFIG_PHP_VERSION}
+        CONFIG_PHP_DOCKER_IMAGE: ${CONFIG_PHP_DOCKER_IMAGE}
+        CONFIG_LOCAL: ${CONFIG_LOCAL}
+        CONFIG_DESTINATION: ${CONFIG_DESTINATION}
+    container_name: php
+    environment:
+      - CONFIG_LOCAL=${CONFIG_LOCAL}
+      - CONFIG_DESTINATION=${CONFIG_DESTINATION}
+    volumes:
+      - ./:${CONFIG_DESTINATION}:delegated
+    networks:
+      - lemp
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    networks:
+      - lemp
+
+  npm:
+    image: node:${CONFIG_NODE_VERSION}-${CONFIG_NODE_DOCKER_IMAGE}
+    container_name: npm
+    volumes:
+      - ./:${CONFIG_DESTINATION}
+    working_dir: ${CONFIG_DESTINATION}
+    entrypoint: ['npm']
+    networks:
+      - lemp

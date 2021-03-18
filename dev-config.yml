@@ -1,0 +1,63 @@
+ip: "10.10.0.20"
+hostname: lemp-docker-vagrant-static-ip.com
+project_name: lemp-docker-vagrant-static-ip
+
+# Folder maps
+local: ./
+destination: /home/vagrant/lemp-docker-vagrant-static-ip # Do not end with /
+type: nfs
+create: true
+
+# Default build commands
+# You can use this to speed up your dev env and reduce any manual commands. It will run from destination directory after Vagrant is ready.
+# Examples:
+# $ composer install
+# $ npm install
+#
+# Leave $ docker-compose up -d otherwise it will not provision the LEMP containers
+build_commands:
+  - docker-compose up -d
+
+# NGINX
+nginx_version: "1.18.0"
+nginx_docker_image: "alpine"
+
+# PHP
+php_version: "7.4"
+php_docker_image: "fpm-alpine"
+php_packages:
+  - name: pdo
+  - name: pdo_mysql
+
+# Node
+node_version: "10"
+node_docker_image: "alpine"
+
+# MySQL
+mysql_version: "5.7.29"
+mysql_db: "mydatabase"
+mysql_user: "myuser"
+mysql_pass: "123"
+mysql_root_pass: "root"
+
+# Redis
+redis_version:
+redis_port:
+
+# Vagrant configuration
+vagrant_minimum_version: "2.1.0"
+vagrant_box: generic/alpine312
+vagrant_box_version: ""
+vagrant_memory: 2048
+vagrant_cpus: 2
+vagrant_api_version: 2
+vagrant_plugins:
+  - name: vagrant-vbguest
+  - name: vagrant-hostsupdater
+vagrant_default_ports:
+  - guest: 80
+    host: 8000
+  - guest: 443
+    host: 44300
+  - guest: 3306
+    host: 33060
