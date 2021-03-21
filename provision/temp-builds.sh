@@ -1,1 +1,3 @@
-# This file is used by Vagrant to add your build commands during provision. Do not delete.
+cd /home/vagrant/lemp-docker-vagrant-static-ip
+docker-compose up -d
+

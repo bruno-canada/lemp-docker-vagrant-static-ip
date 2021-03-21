@@ -31,7 +31,7 @@ php_docker_image: "fpm-alpine"
 php_packages:
   - name: pdo
   - name: pdo_mysql
-php_composer_version: 1
+php_composer_version: "1"
 
 # Node
 node_version: "10"

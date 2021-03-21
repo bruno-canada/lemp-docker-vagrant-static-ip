@@ -22,7 +22,6 @@ services:
       - php
       - redis
       - mysql
-      - composer
     networks:
       - lemp
 
@@ -65,6 +64,10 @@ services:
     build:
       context: .
       dockerfile: provision/composer.dockerfile
+      args:
+        CONFIG_PHP_COMPOSER_VERSION: ${CONFIG_PHP_COMPOSER_VERSION}
+        CONFIG_LOCAL: ${CONFIG_LOCAL}
+        CONFIG_DESTINATION: ${CONFIG_DESTINATION}
     container_name: composer
     volumes:
       - ./:${CONFIG_DESTINATION}
