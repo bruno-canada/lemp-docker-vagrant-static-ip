@@ -61,7 +61,7 @@ services:
       - lemp
 
   redis:
-    image: redis:alpine
+    image: redis:${CONFIG_REDIS_VERSION}-${CONFIG_REDIS_DOCKER_IMAGE}
     container_name: redis
     restart: unless-stopped
     ports:
