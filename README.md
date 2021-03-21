@@ -61,6 +61,10 @@ docker-compose restart
 
 - List running Docker compose containers: `docker-compose ps`
 
+## Tips and tricks
+
+- Suppressing prompts for elevating privileges (Linux, macOS, or Windows)
+    - Check: https://github.com/agiledivider/vagrant-hostsupdater#suppressing-prompts-for-elevating-privileges
 ## License
 
 This project is licensed under the MIT open source license.
