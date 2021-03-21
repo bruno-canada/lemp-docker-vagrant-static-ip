@@ -61,6 +61,10 @@ docker-compose restart
 
 - List running Docker compose containers: `docker-compose ps`
 
+- Running NPM commands via container: `docker-compose run npm install`
+
+- Running Composer commands via container: `docker-compose run composer install`
+
 ## Tips and tricks
 
 - Suppressing prompts for elevating privileges (Linux, macOS, or Windows)
