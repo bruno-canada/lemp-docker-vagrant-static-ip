@@ -1,3 +1,4 @@
+# Static IP for VM. If you want IP auto assign use "0.0.0.0" and enable vagrant-auto_network plugin in Vagrant configs
 ip: "10.10.0.20"
 project_name: lemp-docker-vagrant-static-ip
 hostname: lemp-docker-vagrant-static-ip.com
@@ -43,8 +44,9 @@ mysql_pass: "123"
 mysql_root_pass: "root"
 
 # Redis
-redis_version:
-redis_port:
+redis_version: "5.0.6"
+redis_docker_image: "alpine"
+redis_port: 6379
 
 # Vagrant configuration
 vagrant_minimum_version: "2.1.0"
@@ -56,6 +58,11 @@ vagrant_api_version: 2
 vagrant_plugins:
   - name: vagrant-vbguest
   - name: vagrant-hostsupdater
+  # Alternative for vagrant-hostsupdater
+  # - name: vagrant-hostmanager
+
+  # Useful to avoid IP conflict if not defining static IP
+  # - name: vagrant-auto_network
 vagrant_default_ports:
   - guest: 80
     host: 8000
@@ -63,3 +70,5 @@ vagrant_default_ports:
     host: 44300
   - guest: 3306
     host: 33060
+  - guest: 6379
+    host: 63790
