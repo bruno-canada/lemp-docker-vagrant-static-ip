@@ -61,14 +61,17 @@ Vagrant.configure(settings['vagrant_api_version']) do |config|
     hosts = hosts.push(settings['hostname'])
     unless settings['hostname_aliases'].empty?
         settings['hostname_aliases'].each do |newAlias|
-            hosts = hosts.push(newAlias['name']);
+            if newAlias.key?("name")
+                unless ( newAlias['name'].nil? || newAlias['name'].empty? )
+                    hosts = hosts.push(newAlias['name'])
+                end
+            end
         end
     end
 
     # Manage hosts file to locally point to IP address
     if Vagrant.has_plugin?('vagrant-hostsupdater')
         config.hostsupdater.aliases = hosts
-        config.hostsupdater.remove_on_suspend = false
     elsif Vagrant.has_plugin?('vagrant-hostmanager')
         config.hostmanager.enabled = true
         config.hostmanager.manage_host = true

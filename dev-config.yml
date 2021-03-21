@@ -3,7 +3,7 @@ ip: "10.10.0.20"
 project_name: lemp-docker-vagrant-static-ip
 hostname: lemp-docker-vagrant-static-ip.com
 hostname_aliases:
-  - name: host2.lemp-docker-vagrant-static-ip.com
+  - name: ""
 
 # Folder maps
 local: ./
@@ -14,8 +14,8 @@ create: true
 # Default build commands
 # You can use this to speed up your dev env and reduce any manual commands. It will run from destination directory after Vagrant is ready.
 # Examples:
-# $ composer install
-# $ npm install
+# $ docker-compose run composer install
+# $ docker-compose run npm install
 #
 # Leave $ docker-compose up -d otherwise it will not provision the LEMP containers
 build_commands:
