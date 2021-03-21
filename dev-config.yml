@@ -1,6 +1,8 @@
 ip: "10.10.0.20"
-hostname: lemp-docker-vagrant-static-ip.com
 project_name: lemp-docker-vagrant-static-ip
+hostname: lemp-docker-vagrant-static-ip.com
+hostname_aliases:
+  - name: host2.lemp-docker-vagrant-static-ip.com
 
 # Folder maps
 local: ./
