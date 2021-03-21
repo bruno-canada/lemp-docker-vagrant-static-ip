@@ -56,10 +56,32 @@ Vagrant.configure(settings['vagrant_api_version']) do |config|
             auto_network: settings['ip'] == '0.0.0.0' && Vagrant.has_plugin?('vagrant-auto_network')
     end
 
+    # Merge all hosts and aliases to array
+    hosts = Array.new
+    hosts = hosts.push(settings['hostname'])
+    unless settings['hostname_aliases'].empty?
+        settings['hostname_aliases'].each do |newAlias|
+            if newAlias.key?("name")
+                unless ( newAlias['name'].nil? || newAlias['name'].empty? )
+                    hosts = hosts.push(newAlias['name'])
+                end
+            end
+        end
+    end
+
+    # Manage hosts file to locally point to IP address
+    if Vagrant.has_plugin?('vagrant-hostsupdater')
+        config.hostsupdater.aliases = hosts
+    elsif Vagrant.has_plugin?('vagrant-hostmanager')
+        config.hostmanager.enabled = true
+        config.hostmanager.manage_host = true
+        config.hostmanager.aliases = hosts
+    end
+
     # Vagrant box and version
     config.vm.box = settings['vagrant_box']
     unless settings['vagrant_box_version'].empty?
-                    config.vm.box_version = settings['vagrant_box_version']
+        config.vm.box_version = settings['vagrant_box_version']
     end
 
     # Use Default Port Forwarding Unless Overridden
@@ -72,7 +94,7 @@ Vagrant.configure(settings['vagrant_api_version']) do |config|
     # VirtualBox
     config.vm.provider :virtualbox do |v|
         v.linked_clone = true
-        v.name = settings['hostname']
+        v.name = settings['project_name']
 
         # Configure VM resources
         v.customize ['modifyvm', :id, '--memory', settings['vagrant_memory'] ||= '2048']
