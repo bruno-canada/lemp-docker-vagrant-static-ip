@@ -48,7 +48,7 @@ After it completes, you can access the hostname you have defined inside the conf
 
 - Restart Docker daemon from inside the VM (Running Linux Alpine): `sudo rc-service docker restart`
 
-- Stop/Start/Restart Docker compose containers.
+- Stop/Start/Restart Docker compose containers. (From inside the VM and the project folder)
 ```
 docker-compose start
 docker-compose stop
