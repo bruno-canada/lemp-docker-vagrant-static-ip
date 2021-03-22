@@ -19,7 +19,20 @@ create: true
 #
 # Leave $ docker-compose up -d otherwise it will not provision the LEMP containers
 build_commands:
+  # Build custom images
+  - docker-compose build
+
+  # Boot container services
   - docker-compose up -d
+
+  # Restart Docker daemon to reload network bridge and avoid issues
+  - rc-service docker restart
+
+  # Composer install
+  # - docker-compose run composer install
+
+  # NPM install
+  # - docker-compose run npm install
 
 # NGINX
 nginx_version: "1.18.0"
