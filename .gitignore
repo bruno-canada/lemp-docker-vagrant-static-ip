@@ -1,1 +1,3 @@
 provision/temp-builds.sh
+provision/.mysql/
+*.crt
