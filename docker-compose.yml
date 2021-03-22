@@ -60,6 +60,25 @@ services:
     networks:
       - lemp
 
+  composer:
+    build:
+      context: .
+      dockerfile: provision/composer.dockerfile
+      args:
+        CONFIG_PHP_COMPOSER_VERSION: ${CONFIG_PHP_COMPOSER_VERSION}
+        CONFIG_LOCAL: ${CONFIG_LOCAL}
+        CONFIG_DESTINATION: ${CONFIG_DESTINATION}
+    container_name: composer
+    volumes:
+      - ./:${CONFIG_DESTINATION}
+    working_dir: ${CONFIG_DESTINATION}
+    depends_on:
+      - php
+    user: www
+    entrypoint: ['composer']
+    networks:
+      - lemp
+
   redis:
     image: redis:${CONFIG_REDIS_VERSION}-${CONFIG_REDIS_DOCKER_IMAGE}
     container_name: redis

@@ -1,4 +1,4 @@
-# Dev environment with LEMP, Redis, and Node based on Vagrant and Docker
+# Dev env with LEMP, Composer, Redis, and Node based on Vagrant and Docker
 
 This setup offers cross-platform compatibility, static IP without port conflicts, custom hostname (dev.mysite.com), and a fully centralized config file.
 
