@@ -69,6 +69,23 @@ docker-compose restart
 
 - Suppressing prompts for elevating privileges (Linux, macOS, or Windows)
     - Check: https://github.com/agiledivider/vagrant-hostsupdater#suppressing-prompts-for-elevating-privileges
+
+- Trust self-signed certificate on macOS:
+    1. Open project folder in Finder and open .crt file inside Keychain Access
+        - The certificate file will be placed automatically inside your project folder after `vagrant up`
+    2. Click on 'Certificates' under 'Category'
+    3. Open certificate info window and select 'Always Trust'
+    4. Back in Finder, remove the .crt file
+    
+- Trust self-signed certificate on Windows via Google Chrome:
+    1. On Google Chrome type chrome://settings/security?search=security
+    2. Click on Manage Certificates
+    3. Click on Import
+    4. Select the `*.crt` file and import it to `Trusted Root Certification Authorities`
+        - The certificate file will be placed automatically inside your project folder after `vagrant up`
+    5. Back to Chrome type chrome://restart
+    6. Delete the .crt file
+
 ## License
 
 This project is licensed under the MIT open source license.
