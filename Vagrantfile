@@ -149,4 +149,8 @@ Vagrant.configure(settings['vagrant_api_version']) do |config|
     end
     config.vm.provision "shell", inline:"echo \"#{builds}\" > #{settings['destination']}/provision/temp-builds.sh", run: "always"
     config.vm.provision "shell", path: "provision/temp-builds.sh"
+
+    # Copy certificate from container to host
+    config.vm.provision "shell", inline:"docker cp nginx:/etc/ssl/certs/#{settings['hostname']}.crt #{settings['destination']}"
+
 end
