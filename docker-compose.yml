@@ -32,7 +32,6 @@ services:
     container_name: mysql
     restart: unless-stopped
     tty: true
-    command: [--ignore-db-dir=lost+found]
     ports:
       - 3306:3306
     environment:
@@ -42,8 +41,6 @@ services:
       MYSQL_ROOT_PASSWORD: "${CONFIG_MYSQL_ROOT_PASS}"
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-    volumes:
-      - ./provision/.mysql:/var/lib/mysql
     networks:
       - lemp
 
