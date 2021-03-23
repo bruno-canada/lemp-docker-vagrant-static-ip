@@ -30,7 +30,9 @@ git clone git@github.com:bruno-canada/lemp-docker-vagrant-static-ip.git
 
 Everything you need to change is centralized inside of `dev-config.yml`, all the other tools will read information from it, including Vagrant, Docker, PHP, NGINX, MySQL...
 
-If you want to keep it as light as possible, I suggest leaving the `vagrant_box` configuration as `generic/alpine312`. Linux Alpine can be 10 times smaller than Ubuntu.
+The default Vagrant box used in my `dev-config.yml` file is a minimalist Alpine Linux v3.12 with Docker and Docker compose already installed, the box is `bruno-canada/alpine312-docker`.
+
+If you decide to change the Vagrant box make sure to edit the file `provision/base-packages.sh` to uncomment the base packages.
 
 ### 3. Boot up the environment
 
