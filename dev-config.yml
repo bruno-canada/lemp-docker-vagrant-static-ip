@@ -64,7 +64,8 @@ redis_port: 6379
 
 # Vagrant configuration
 vagrant_minimum_version: "2.1.0"
-vagrant_box: generic/alpine312
+# If you switch to another image (e.g. generic/alpine312) make sure to uncomment provision/base-packages.sh to install Docker and Docker Compose
+vagrant_box: bruno-canada/alpine312-docker 
 vagrant_box_version: ""
 vagrant_memory: 2048
 vagrant_cpus: 2
